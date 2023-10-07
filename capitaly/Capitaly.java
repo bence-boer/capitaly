@@ -40,6 +40,7 @@ public final class Capitaly {
     private static final String[] TEST_FILE_PATHS = {
         "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
         "test/test_02.txt",  // test player type decision-making methods
+        "test/test_03.txt",  // test manual play
     };
 
     private final Track track;
@@ -53,12 +54,37 @@ public final class Capitaly {
     }
 
     public static void main(String[] args) throws InvalidInputException {
-        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[1]);
-
+        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[2]);
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
+
         int[] rolls = parser.getDiceRolls();
-        game.progress(rolls);
-        game.info();
+        if (rolls == null) game.manualGame();
+        else game.simulateGame(rolls);
+    }
+
+    private void manualGame() {
+        System.out.println("Manual mode");
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("-------------------------------------------------------------");
+            System.out.print(players.get(currentPlayerIndex % players.size()).getName() + ": ");
+            if (scanner.hasNextLine()) {
+                try {
+                    int value = InputDataParser.parseDiceRoll(scanner.nextLine());
+                    this.progress(value);
+                    this.info();
+                } catch (InvalidInputException exception) {
+                    System.out.println("\nPlease provide an integer between 1 and 6 for the dice roll!");
+                }
+            }
+        }
+    }
+
+    private void simulateGame(int[] rolls) {
+        System.out.println("Simulation mode");
+        this.progress(rolls);
+        this.info();
     }
 
     private void progress(int roll) {
@@ -68,7 +94,7 @@ public final class Capitaly {
         if (player.isBankrupt()) this.eliminate(player);
 
         if (players.size() == 1) {
-            System.out.println(player.getName() + " won the game!");
+            System.out.println(players.get(0).getName() + " won the game!");
             this.info();
             System.exit(0);
         }

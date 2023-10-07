@@ -24,10 +24,13 @@ public final class InputDataParser {
         try (Scanner scanner = new Scanner(new File(path))) {
             this.track = new Track(readList(scanner, InputDataParser::parseTile));
             this.players = readList(scanner, InputDataParser::parsePlayer);
-            this.diceRolls = readList(scanner, InputDataParser::parseDiceRoll)
-                .stream()
-                .mapToInt(i -> i)
-                .toArray();
+            this.diceRolls = !scanner.hasNextLine() ?
+                null :
+                readList(scanner, InputDataParser::parseDiceRoll)
+                    .stream()
+                    .mapToInt(i -> i)
+                    .toArray();
+
         } catch (FileNotFoundException exception) {
             throw new InvalidInputException("No input file found at " + path);
         }
@@ -87,7 +90,7 @@ public final class InputDataParser {
         };
     }
 
-    private static int parseDiceRoll(String line) throws InvalidInputException {
+    public static int parseDiceRoll(String line) throws InvalidInputException {
         if (line == null || line.isBlank())
             throw new InvalidInputException("Invalid input while parsing dice roll:\nTrying to parse blank string.");
         final String[] tokens = line.split(" ");
@@ -117,5 +120,32 @@ public final class InputDataParser {
 
     public int[] getDiceRolls() {
         return diceRolls;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InputDataParser that)) return false;
+
+        if (!track.equals(that.track)) return false;
+        if (!players.equals(that.players)) return false;
+        return Arrays.equals(diceRolls, that.diceRolls);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = track.hashCode();
+        result = 31 * result + players.hashCode();
+        result = 31 * result + Arrays.hashCode(diceRolls);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "InputDataParser {" +
+            "\ntrack=" + track +
+            ",\n players=" + players +
+            ",\n diceRolls=" + Arrays.toString(diceRolls) +
+            "\n}";
     }
 }

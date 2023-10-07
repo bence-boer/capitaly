@@ -62,7 +62,7 @@ public final class RealEstateTile extends Tile {
             player.pay(price);
             player.assign(this);
             this.assign(player);
-        } else if (player != this.owner) this.owner.receive(player.pay(price));
+        } else if (player != this.owner && null != this.owner) this.owner.receive(player.pay(price));
     }
 
     public void assign(Player player) {

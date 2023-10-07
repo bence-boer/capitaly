@@ -10,7 +10,7 @@ public abstract class Player {
     private static final int STARTING_CAPITAL = 10000;
     private static int count;
 
-    private final Integer ID;
+    public final Integer ID;
     private final String name;
     private final List<RealEstateTile> properties;
     private int capital;

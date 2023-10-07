@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class Tile {
     private static int count;
-    private final Integer ID;
+    public final Integer ID;
 
     protected Tile(){
         this.ID = count++;

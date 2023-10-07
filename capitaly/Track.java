@@ -7,16 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Track {
-    private final List<Tile> tiles;
     private final int length;
+    private final List<Tile> tiles;
 
     private final Map<Player, Integer> positions;
 
     public Track(List<Tile> tiles) {
+        this.length = tiles.size();
         this.tiles = new ArrayList<>(tiles);
-        this.length = this.tiles.size();
         this.positions = new HashMap<>();
     }
 
@@ -30,5 +31,16 @@ public class Track {
 
     public void remove(Player player) {
         positions.remove(player);
+    }
+
+    @Override
+    public String toString() {
+        return "Track {" +
+            "\n\tlength: " + length +
+            "\n\ttiles: " +
+            tiles.stream().map(tile -> "\n\t\t" + tile).collect(Collectors.joining()) +
+            "\n\tpositions: " +
+            positions +
+            "\n}";
     }
 }
