@@ -1,5 +1,7 @@
 package capitaly.tile;
 
+import capitaly.player.Player;
+
 public final class ServiceTile extends Tile {
     private final int serviceFee;
 
@@ -7,7 +9,8 @@ public final class ServiceTile extends Tile {
         this.serviceFee = serviceFee;
     }
 
-    public int getServiceFee() {
-        return serviceFee;
+    @Override
+    public void enter(Player player) {
+        player.pay(this.serviceFee);
     }
 }

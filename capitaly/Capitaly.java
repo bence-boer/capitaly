@@ -31,12 +31,20 @@ birtokolnak) a versenyzők!
  */
 
 import capitaly.player.Player;
-import capitaly.util.InputDataParser;
-import capitaly.util.InvalidInputException;
+import capitaly.io.InputDataParser;
+import capitaly.io.InvalidInputException;
 
 import java.util.*;
 
 public final class Capitaly {
+    private static final String[] TEST_FILE_PATHS = {
+        "in.txt",
+        "test_01.txt",  // test for _
+        "test_02.txt",  // test for _
+        "test_03.txt",  // test for _
+        "test_04.txt"   // test for _
+    };
+
     private final Track track;
     private final List<Player> players;
     private int currentPlayerIndex;
@@ -48,19 +56,21 @@ public final class Capitaly {
     }
 
     public static void main(String[] args) throws InvalidInputException {
-        InputDataParser parser = new InputDataParser("in.txt");
+        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[0]);
 
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
         game.progress(parser.getDiceRolls());
+        game.info();
     }
 
     private void progress(int roll) {
         if (this.currentPlayerIndex >= this.players.size()) this.currentPlayerIndex = 0;
         Player player = this.players.get(this.currentPlayerIndex++);
         track.progress(player, roll);
-        if(player.isBankrupt()) this.eliminate(player);
+        if (player.isBankrupt()) this.eliminate(player);
 
-        if(players.size() == 1) System.out.println(player.getName() + " won the game!");
+        if (players.size() == 1) System.out.println(player.getName() + " won the game!");
+        this.info();
         System.exit(0);
     }
 
@@ -72,5 +82,12 @@ public final class Capitaly {
         player.lose();
         this.track.remove(player);
         this.players.remove(player);
+        System.out.println(player.getName() + " just got eliminated.");
+    }
+
+    private void info() {
+        for (Player player : this.players) {
+            System.out.println(player);
+        }
     }
 }

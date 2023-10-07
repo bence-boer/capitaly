@@ -1,4 +1,4 @@
-package capitaly.util;
+package capitaly.io;
 
 import capitaly.Track;
 import capitaly.player.CarefulPlayer;

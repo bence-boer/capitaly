@@ -9,7 +9,7 @@ public class CarefulPlayer extends Player {
     }
 
     @Override
-    protected boolean shouldBuy(RealEstateTile realEstateTile) {
-        return this.getCapital() >= realEstateTile.getPriceFor(this) / 2;
+    public final boolean wantsToBuy(RealEstateTile tile) {
+        return this.getCapital() >= tile.getPriceFor(this) * 2;
     }
 }

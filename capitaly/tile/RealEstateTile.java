@@ -8,7 +8,7 @@ import capitaly.player.Player;
 public final class RealEstateTile extends Tile {
 
     /**
-     * The original purchase price for owning a {@link RealEstateTile}.
+     * The original assign price for owning a {@link RealEstateTile}.
      * This is the cost incurred when a player lands on an unowned {@link RealEstateTile} and decides to buy it.
      *
      * @see #HOUSE_UPGRADE_COST
@@ -51,7 +51,21 @@ public final class RealEstateTile extends Tile {
         this.upgraded = false;
     }
 
-    public void purchase(Player player) {
+    @Override
+    public void enter(Player player) {
+        int price = getPriceFor(player);
+
+        if (player == this.owner && player.wantsToBuy(this)) {
+            player.pay(price);
+            this.upgrade();
+        } else if (null == this.owner && player.wantsToBuy(this)) {
+            player.pay(price);
+            player.assign(this);
+            this.assign(player);
+        } else if (player != this.owner) this.owner.receive(player.pay(price));
+    }
+
+    public void assign(Player player) {
         this.owner = player;
     }
 
@@ -59,7 +73,7 @@ public final class RealEstateTile extends Tile {
         this.upgraded = true;
     }
 
-    public void reset(){
+    public void reset() {
         this.owner = null;
         this.upgraded = false;
     }
@@ -75,7 +89,11 @@ public final class RealEstateTile extends Tile {
         }
     }
 
-    public Player getOwner() {
-        return this.owner;
+    @Override
+    public String toString() {
+        return "RealEstateTile{" +
+            "owner=" + owner.getName() +
+            ", upgraded=" + upgraded +
+            '}';
     }
 }

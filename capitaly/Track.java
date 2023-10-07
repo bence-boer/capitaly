@@ -12,23 +12,23 @@ public class Track {
     private final List<Tile> tiles;
     private final int length;
 
-    private final Map<Player, Integer> players;
+    private final Map<Player, Integer> positions;
 
     public Track(List<Tile> tiles) {
         this.tiles = new ArrayList<>(tiles);
         this.length = this.tiles.size();
-
-        this.players = new HashMap<>();
+        this.positions = new HashMap<>();
     }
 
     public void progress(Player player, int steps) {
-        if(!players.containsKey(player)) players.put(player, -1);
-        int targetIndex = (players.get(player) + steps) % this.length;
-        players.put(player, targetIndex);
-        player.stepOn(tiles.get(targetIndex));
+        positions.putIfAbsent(player, -1);
+        int target = (positions.get(player) + steps) % this.length;
+
+        positions.replace(player, target);
+        tiles.get(target).enter(player);
     }
 
     public void remove(Player player) {
-        players.remove(player);
+        positions.remove(player);
     }
 }

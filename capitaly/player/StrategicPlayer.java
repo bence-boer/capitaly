@@ -12,7 +12,7 @@ public class StrategicPlayer extends Player {
     }
 
     @Override
-    protected boolean shouldBuy(RealEstateTile realEstateTile) {
-        return this.skip = !this.skip;
+    public final boolean wantsToBuy(RealEstateTile tile) {
+        return this.canBuy(tile) && (this.skip = !this.skip);
     }
 }

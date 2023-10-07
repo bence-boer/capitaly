@@ -9,11 +9,11 @@ public class GreedyPlayer extends Player {
     }
 
     /**
-     * @param realEstateTile tile to be made the decision about
+     * @param tile tile to be made the decision about
      * @return always true
      */
     @Override
-    protected boolean shouldBuy(RealEstateTile realEstateTile) {
+    public final boolean wantsToBuy(RealEstateTile tile) {
         return true;
     }
 }

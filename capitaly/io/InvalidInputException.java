@@ -1,4 +1,4 @@
-package capitaly.util;
+package capitaly.io;
 
 public class InvalidInputException extends RuntimeException {
     /**

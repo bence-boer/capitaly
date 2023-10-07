@@ -1,5 +1,7 @@
 package capitaly.tile;
 
+import capitaly.player.Player;
+
 public final class LuckTile extends Tile {
     private final int reward;
 
@@ -7,7 +9,8 @@ public final class LuckTile extends Tile {
         this.reward = reward;
     }
 
-    public int getReward() {
-        return reward;
+    @Override
+    public void enter(Player player) {
+        player.receive(this.reward);
     }
 }
