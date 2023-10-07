@@ -24,7 +24,7 @@ public final class RealEstateTile extends Tile {
     public static final int HOUSE_UPGRADE_COST = 4000;
 
     /**
-     * The cost another player has to pay when landing on a {@link RealEstateTile} owned by someone else without a house.
+     * The fee another player has to pay when landing on a {@link RealEstateTile} owned by someone else without a house.
      * This fee is incurred when a player lands on an owned {@link RealEstateTile} without a house upgrade.
      *
      * @see #INITIAL_PURCHASE_COST
@@ -33,7 +33,7 @@ public final class RealEstateTile extends Tile {
     public static final int LANDING_FEE_NO_HOUSE = 500;
 
     /**
-     * The cost another player has to pay when landing on a {@link RealEstateTile} owned by someone else with a house.
+     * The fee another player has to pay when landing on a {@link RealEstateTile} owned by someone else with a house.
      * This fee is incurred when a player lands on an owned {@link RealEstateTile} that has a house upgrade.
      *
      * @see #INITIAL_PURCHASE_COST
@@ -91,9 +91,6 @@ public final class RealEstateTile extends Tile {
 
     @Override
     public String toString() {
-        return "RealEstateTile{" +
-            "owner=" + owner.getName() +
-            ", upgraded=" + upgraded +
-            '}';
+        return super.toString() + " RealEstateTile" + (upgraded ? " + house" : "");
     }
 }

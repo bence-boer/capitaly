@@ -3,14 +3,19 @@ package capitaly.tile;
 import capitaly.player.Player;
 
 public final class ServiceTile extends Tile {
-    private final int serviceFee;
+    private final int fee;
 
-    public ServiceTile(int serviceFee) {
-        this.serviceFee = serviceFee;
+    public ServiceTile(int fee) {
+        this.fee = fee;
     }
 
     @Override
     public void enter(Player player) {
-        player.pay(this.serviceFee);
+        player.pay(this.fee);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ServiceTile ( -" + fee + " )";
     }
 }

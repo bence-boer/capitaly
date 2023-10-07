@@ -15,4 +15,9 @@ public class StrategicPlayer extends Player {
     public final boolean wantsToBuy(RealEstateTile tile) {
         return this.canBuy(tile) && (this.skip = !this.skip);
     }
+
+    @Override
+    public String toString() {
+        return "Player [strategic]\t| " + super.toString();
+    }
 }

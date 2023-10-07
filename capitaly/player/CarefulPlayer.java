@@ -12,4 +12,9 @@ public class CarefulPlayer extends Player {
     public final boolean wantsToBuy(RealEstateTile tile) {
         return this.getCapital() >= tile.getPriceFor(this) * 2;
     }
+
+    @Override
+    public String toString() {
+        return "Player [careful]\t| " + super.toString();
+    }
 }

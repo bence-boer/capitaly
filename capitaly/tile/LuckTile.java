@@ -13,4 +13,9 @@ public final class LuckTile extends Tile {
     public void enter(Player player) {
         player.receive(this.reward);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " LuckTile ( +" + reward + " )";
+    }
 }

@@ -8,15 +8,18 @@ import java.util.Objects;
 
 public abstract class Player {
     private static final int STARTING_CAPITAL = 10000;
+    private static int count;
 
+    private final Integer ID;
     private final String name;
     private final List<RealEstateTile> properties;
     private int capital;
     private boolean bankrupt;
 
     protected Player(String name) {
-        this.properties = new ArrayList<>();
+        this.ID = count++;
         this.name = name;
+        this.properties = new ArrayList<>();
         this.capital = Player.STARTING_CAPITAL;
         this.bankrupt = false;
     }
@@ -32,7 +35,7 @@ public abstract class Player {
     }
 
     public final int pay(int amount) {
-        if (amount > this.capital){
+        if (amount > this.capital) {
             this.bankrupt = true;
             amount = this.capital;
         }
@@ -63,16 +66,14 @@ public abstract class Player {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, capital);
+        return Objects.hash(this.ID, this.name);
     }
 
     @Override
     public String toString() {
-        return "Player{" +
-            "name='" + name + '\'' +
-            ", properties=" + properties +
-            ", capital=" + capital +
-            ", bankrupt=" + bankrupt +
-            '}';
+        return name + '\t' +
+            "\tproperties: " + properties +
+            "\tcapital: " + capital +
+            "\tbankrupt: " + (bankrupt ? "yes" : "no");
     }
 }

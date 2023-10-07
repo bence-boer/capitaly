@@ -38,11 +38,8 @@ import java.util.*;
 
 public final class Capitaly {
     private static final String[] TEST_FILE_PATHS = {
-        "in.txt",
-        "test_01.txt",  // test for _
-        "test_02.txt",  // test for _
-        "test_03.txt",  // test for _
-        "test_04.txt"   // test for _
+        "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
+        "test/test_02.txt",  // test player type decision-making methods
     };
 
     private final Track track;
@@ -56,10 +53,11 @@ public final class Capitaly {
     }
 
     public static void main(String[] args) throws InvalidInputException {
-        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[0]);
+        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[1]);
 
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
-        game.progress(parser.getDiceRolls());
+        int[] rolls = parser.getDiceRolls();
+        game.progress(rolls);
         game.info();
     }
 
@@ -69,20 +67,24 @@ public final class Capitaly {
         track.progress(player, roll);
         if (player.isBankrupt()) this.eliminate(player);
 
-        if (players.size() == 1) System.out.println(player.getName() + " won the game!");
-        this.info();
-        System.exit(0);
+        if (players.size() == 1) {
+            System.out.println(player.getName() + " won the game!");
+            this.info();
+            System.exit(0);
+        }
     }
 
     private void progress(int[] rolls) {
-        for (Integer roll : rolls) this.progress(roll);
+        for (Integer roll : rolls) {
+            this.progress(roll);
+        }
     }
 
     private void eliminate(Player player) {
         player.lose();
         this.track.remove(player);
         this.players.remove(player);
-        System.out.println(player.getName() + " just got eliminated.");
+        System.out.println(player.getName() + " got eliminated.");
     }
 
     private void info() {

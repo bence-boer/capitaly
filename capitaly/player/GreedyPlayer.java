@@ -16,4 +16,9 @@ public class GreedyPlayer extends Player {
     public final boolean wantsToBuy(RealEstateTile tile) {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Player [greedy]\t\t| " + super.toString();
+    }
 }
