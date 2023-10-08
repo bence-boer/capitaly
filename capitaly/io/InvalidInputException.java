@@ -1,5 +1,8 @@
 package capitaly.io;
 
+/**
+ * Thrown to indicate that the input is invalid.
+ */
 public class InvalidInputException extends RuntimeException {
     /**
      * Constructs a new exception with the specified detail message.  The

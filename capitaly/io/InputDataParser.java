@@ -15,11 +15,31 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.function.Function;
 
+/**
+ * Responsible for parsing the input data.
+ */
 public final class InputDataParser {
+
+    /**
+     * The track described in the input file.
+     */
     private final Track track;
+    /**
+     * The list of players specified in the input file.
+     */
     private final List<Player> players;
+
+    /**
+     * The list of dice rolls specified in the input file.
+     */
     private final int[] diceRolls;
 
+    /**
+     * Constructs a new InputDataParser object.
+     *
+     * @param path The path to the input file.
+     * @throws InvalidInputException If the input file is invalid.
+     */
     public InputDataParser(String path) throws InvalidInputException {
         try (Scanner scanner = new Scanner(new File(path))) {
             this.track = new Track(readList(scanner, InputDataParser::parseTile));
@@ -36,6 +56,15 @@ public final class InputDataParser {
         }
     }
 
+    /**
+     * Reads a list of objects from the input file.
+     *
+     * @param scanner    The scanner to read from.
+     * @param lineParser The function to parse a single line.
+     * @param <TYPE>     The type of the objects in the list.
+     * @return The list of objects.
+     * @throws InvalidInputException If the input file is invalid.
+     */
     private static <TYPE> List<TYPE> readList(Scanner scanner, Function<String, TYPE> lineParser) throws InvalidInputException {
         int counter = 0;
         int dataCount = 0;
@@ -54,6 +83,13 @@ public final class InputDataParser {
         }
     }
 
+    /**
+     * Parses a tile from the input file.
+     *
+     * @param line The line to parse.
+     * @return The parsed tile.
+     * @throws InvalidInputException If the string is not a valid tile.
+     */
     private static Tile parseTile(String line) throws InvalidInputException {
         if (line == null || line.isBlank())
             throw new InvalidInputException("Invalid input while parsing tile:\nTrying to parse blank string.");
@@ -74,6 +110,13 @@ public final class InputDataParser {
         }
     }
 
+    /**
+     * Parses a player from the input file.
+     *
+     * @param line The line to parse.
+     * @return The parsed player.
+     * @throws InvalidInputException If the string is not a valid player.
+     */
     private static Player parsePlayer(String line) throws InvalidInputException {
         if (line == null || line.isBlank())
             throw new InvalidInputException("Invalid input while parsing player:\nTrying to parse blank string.");
@@ -90,6 +133,13 @@ public final class InputDataParser {
         };
     }
 
+    /**
+     * Parses a die roll from the input file.
+     *
+     * @param line The line to parse.
+     * @return The parsed dice roll.
+     * @throws InvalidInputException If the string is not a valid dice roll.
+     */
     public static int parseDiceRoll(String line) throws InvalidInputException {
         if (line == null || line.isBlank())
             throw new InvalidInputException("Invalid input while parsing dice roll:\nTrying to parse blank string.");
@@ -110,18 +160,39 @@ public final class InputDataParser {
         };
     }
 
+    /**
+     * Returns the track described in the input file.
+     *
+     * @return The track described in the input file.
+     */
     public Track getTrack() {
         return this.track;
     }
 
+    /**
+     * Returns the list of players specified in the input file.
+     *
+     * @return The list of players specified in the input file.
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Returns the list of dice rolls specified in the input file.
+     *
+     * @return The list of dice rolls specified in the input file.
+     */
     public int[] getDiceRolls() {
         return diceRolls;
     }
 
+    /**
+     * Compares the InputDataParser to another object.
+     *
+     * @param o The object to compare to.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,6 +203,11 @@ public final class InputDataParser {
         return Arrays.equals(diceRolls, that.diceRolls);
     }
 
+    /**
+     * Returns the hash code of the InputDataParser.
+     *
+     * @return The hash code of the InputDataParser.
+     */
     @Override
     public int hashCode() {
         int result = track.hashCode();
@@ -140,6 +216,11 @@ public final class InputDataParser {
         return result;
     }
 
+    /**
+     * Returns the string representation of the InputDataParser.
+     *
+     * @return The string describing the parser.
+     */
     @Override
     public String toString() {
         return "InputDataParser {" +

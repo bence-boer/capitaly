@@ -36,23 +36,53 @@ import capitaly.io.InvalidInputException;
 
 import java.util.*;
 
+/**
+ * Represents the Capitaly game.
+ */
 public final class Capitaly {
+    /**
+     * The paths of the test files.
+     */
     private static final String[] TEST_FILE_PATHS = {
         "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
         "test/test_02.txt",  // test player type decision-making methods
         "test/test_03.txt",  // test manual play
     };
 
+    /**
+     * The track of the game.
+     */
     private final Track track;
+
+    /**
+     * The players playing the game.
+     */
     private final List<Player> players;
+
+    /**
+     * The index of the current player.
+     */
     private int currentPlayerIndex;
 
+    /**
+     * Constructs a new Capitaly game with the given track and players.
+     *
+     * @param track   The track of the game.
+     * @param players The players playing the game.
+     */
     public Capitaly(Track track, List<Player> players) {
         this.track = track;
         this.players = new ArrayList<>(players);
         this.currentPlayerIndex = 0;
     }
 
+    /**
+     * The entry point of the program.
+     * Starts the game with the given arguments.
+     *
+     * @param args The command line arguments.
+     * @throws InvalidInputException If the input is invalid.
+     */
     public static void main(String[] args) throws InvalidInputException {
         InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[2]);
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
@@ -62,6 +92,9 @@ public final class Capitaly {
         else game.simulateGame(rolls);
     }
 
+    /**
+     * Starts the game in manual mode.
+     */
     private void manualGame() {
         System.out.println("Manual mode");
         Scanner scanner = new Scanner(System.in);
@@ -81,12 +114,22 @@ public final class Capitaly {
         }
     }
 
+    /**
+     * Starts the game in simulation mode.
+     *
+     * @param rolls The rolls of the die.
+     */
     private void simulateGame(int[] rolls) {
         System.out.println("Simulation mode");
         this.progress(rolls);
         this.info();
     }
 
+    /**
+     * Progresses the game with the given roll, rolled by the current player.
+     *
+     * @param roll The roll of the die.
+     */
     private void progress(int roll) {
         if (this.currentPlayerIndex >= this.players.size()) this.currentPlayerIndex = 0;
         Player player = this.players.get(this.currentPlayerIndex++);
@@ -100,12 +143,20 @@ public final class Capitaly {
         }
     }
 
+    /**
+     * Progresses the game with the given rolls.
+     *
+     * @param rolls The rolls of the die.
+     */
     private void progress(int[] rolls) {
-        for (Integer roll : rolls) {
-            this.progress(roll);
-        }
+        for (Integer roll : rolls) this.progress(roll);
     }
 
+    /**
+     * Eliminates the given player from the game.
+     *
+     * @param player The player to eliminate.
+     */
     private void eliminate(Player player) {
         player.lose();
         this.track.remove(player);
@@ -113,6 +164,9 @@ public final class Capitaly {
         System.out.println(player.getName() + " got eliminated.");
     }
 
+    /**
+     * Prints the information about the players.
+     */
     private void info() {
         for (Player player : this.players) {
             System.out.println(player);
