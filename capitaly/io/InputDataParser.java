@@ -73,8 +73,9 @@ public final class InputDataParser {
         try {
             line = scanner.nextLine();
             dataCount = Integer.parseInt(line);
+            if(dataCount < 1) throw new InvalidInputException("Invalid input while reading input:\nExpected a positive integer value for data count, found " + dataCount + '.');
             final List<TYPE> result = new ArrayList<>(dataCount);
-            while (counter++ <dataCount) result.add(lineParser.apply(scanner.nextLine()));
+            while (counter++ < dataCount) result.add(lineParser.apply(scanner.nextLine()));
             return result;
         } catch (NoSuchElementException exception) {
             throw new InvalidInputException("Invalid input while reading input:\nExpected " + dataCount + " lines of type, found only " + counter + ".");

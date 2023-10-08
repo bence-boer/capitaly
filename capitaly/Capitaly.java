@@ -17,8 +17,9 @@ public final class Capitaly {
         "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
         "test/test_02.txt",  // test player type decision-making methods
         "test/test_03.txt",  // test player elimination and winning
-        "test/test_04.txt",  // test faulty input
-        "test/test_05.txt",  // test manual play
+        "test/test_04.txt",  // test invalid fee
+        "test/test_05.txt",  // test invalid data count
+        "test/test_06.txt",  // test manual play
     };
 
     /**
