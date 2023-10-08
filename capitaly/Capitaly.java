@@ -17,8 +17,9 @@ public final class Capitaly {
         "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
         "test/test_02.txt",  // test player type decision-making methods
         "test/test_03.txt",  // test player elimination and winning
-        "test/test_04.txt",  // test faulty input
-        "test/test_05.txt",  // test manual play
+        "test/test_04.txt",  // test invalid fee
+        "test/test_05.txt",  // test invalid data count
+        "test/test_06.txt",  // test manual play
     };
 
     /**
@@ -56,7 +57,7 @@ public final class Capitaly {
      * @throws InvalidInputException If the input is invalid.
      */
     public static void main(String[] args) throws InvalidInputException {
-        String path = args.length > 0 ? args[0] : TEST_FILE_PATHS[0];
+        String path = args.length > 0 ? args[0] : TEST_FILE_PATHS[4];
         InputDataParser parser = new InputDataParser(path);
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
 
