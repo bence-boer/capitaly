@@ -57,7 +57,7 @@ public final class Capitaly {
      * @throws InvalidInputException If the input is invalid.
      */
     public static void main(String[] args) throws InvalidInputException {
-        String path = args.length > 0 ? args[0] : TEST_FILE_PATHS[0];
+        String path = args.length > 0 ? args[0] : TEST_FILE_PATHS[4];
         InputDataParser parser = new InputDataParser(path);
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
 
