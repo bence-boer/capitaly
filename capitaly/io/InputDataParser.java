@@ -74,7 +74,7 @@ public final class InputDataParser {
             line = scanner.nextLine();
             dataCount = Integer.parseInt(line);
             final List<TYPE> result = new ArrayList<>(dataCount);
-            while (counter++ < dataCount) result.add(lineParser.apply(scanner.nextLine()));
+            while (counter++ <dataCount) result.add(lineParser.apply(scanner.nextLine()));
             return result;
         } catch (NoSuchElementException exception) {
             throw new InvalidInputException("Invalid input while reading input:\nExpected " + dataCount + " lines of type, found only " + counter + ".");
@@ -103,10 +103,10 @@ public final class InputDataParser {
                 case "service" -> new ServiceTile(Integer.parseInt(tokens[1]));
                 case "luck" -> new LuckTile(Integer.parseInt(tokens[1]));
                 default ->
-                    throw new InvalidInputException("Invalid input while parsing tile:\nExpected < \"realestate\" | \"service\" | \"luck\" > [ amount: int ], got " + Arrays.toString(tokens) + " instead.");
+                    throw new InvalidInputException("Invalid input while parsing tile:\nExpected <\"realestate\"|\"service\"|\"luck\"> [amount: int], got \"" + line + "\" instead.");
             };
         } catch (NumberFormatException exception) {
-            throw new InvalidInputException("Invalid input while parsing tile:\nExpected < \"realestate\" | \"service\" | \"luck\" > [ amount: int ], got " + Arrays.toString(tokens) + " instead.");
+            throw new InvalidInputException("Invalid input while parsing tile:\nExpected <\"realestate\"|\"service\"|\"luck\"> [amount: int], got \"" + line + "\" instead.");
         }
     }
 
@@ -129,7 +129,7 @@ public final class InputDataParser {
             case "strategic" -> new StrategicPlayer(tokens[0]);
             case "greedy" -> new GreedyPlayer(tokens[0]);
             default ->
-                throw new InvalidInputException("Invalid input while parsing player:\nExpected < \"careful\" | \"strategic\" | \"greedy\" > < name: String >, got " + Arrays.toString(tokens) + " instead.");
+                throw new InvalidInputException("Invalid input while parsing player:\nExpected <\"careful\"|\"strategic\"|\"greedy\"> <name: String>, got " + Arrays.toString(tokens) + " instead.");
         };
     }
 
@@ -151,12 +151,12 @@ public final class InputDataParser {
         try {
             result = Integer.parseInt(line);
         } catch (NumberFormatException exception) {
-            throw new InvalidInputException("Invalid input while parsing dice roll:\nExpected < 1 | 2 | 3 | 4 | 5 | 6 >, got \"" + line + "\" instead.");
+            throw new InvalidInputException("Invalid input while parsing dice roll:\nExpected <1|2|3|4|5|6>, got \"" + line + "\" instead.");
         }
         return switch (result) {
             case 1, 2, 3, 4, 5, 6 -> result;
             default ->
-                throw new InvalidInputException("Invalid input while parsing dice roll:\nExpected < 1 | 2 | 3 | 4 | 5 | 6 >, got \"" + line + "\" instead.");
+                throw new InvalidInputException("Invalid input while parsing dice roll:\nExpected <1|2|3|4|5|6>, got \"" + line + "\" instead.");
         };
     }
 

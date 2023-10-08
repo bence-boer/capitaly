@@ -46,7 +46,9 @@ public final class Capitaly {
     private static final String[] TEST_FILE_PATHS = {
         "test/test_01.txt",  // test real-estate purchase/upgrade/fee mechanics
         "test/test_02.txt",  // test player type decision-making methods
-        "test/test_03.txt",  // test manual play
+        "test/test_03.txt",  // test player elimination and winning
+        "test/test_04.txt",  // test faulty input
+        "test/test_05.txt",  // test manual play
     };
 
     /**
@@ -80,11 +82,12 @@ public final class Capitaly {
      * The entry point of the program.
      * Starts the game with the given arguments.
      *
-     * @param args The command line arguments.
+     * @param args The arguments of the program (the path of the input file).
      * @throws InvalidInputException If the input is invalid.
      */
     public static void main(String[] args) throws InvalidInputException {
-        InputDataParser parser = new InputDataParser(TEST_FILE_PATHS[2]);
+        String path = args.length > 0 ? args[0] : TEST_FILE_PATHS[0];
+        InputDataParser parser = new InputDataParser(path);
         Capitaly game = new Capitaly(parser.getTrack(), parser.getPlayers());
 
         int[] rolls = parser.getDiceRolls();
@@ -94,6 +97,8 @@ public final class Capitaly {
 
     /**
      * Starts the game in manual mode.
+     * The user can roll the die manually.
+     * The game ends when there is only one player left.
      */
     private void manualGame() {
         System.out.println("Manual mode");
@@ -165,7 +170,7 @@ public final class Capitaly {
     }
 
     /**
-     * Prints the information about the players.
+     * Prints the information about the players still in the game.
      */
     private void info() {
         for (Player player : this.players) {
