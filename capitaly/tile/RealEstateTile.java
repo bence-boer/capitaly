@@ -13,7 +13,7 @@ public final class RealEstateTile extends Tile {
      *
      * @see #HOUSE_UPGRADE_COST
      */
-    public static final int INITIAL_PURCHASE_COST = 1000;
+    private static final int INITIAL_PURCHASE_COST = 1000;
 
     /**
      * The cost of adding a house to a {@link RealEstateTile}.
@@ -21,7 +21,7 @@ public final class RealEstateTile extends Tile {
      *
      * @see #INITIAL_PURCHASE_COST
      */
-    public static final int HOUSE_UPGRADE_COST = 4000;
+    private static final int HOUSE_UPGRADE_COST = 4000;
 
     /**
      * The fee another player has to pay when landing on a {@link RealEstateTile} owned by someone else without a house.
@@ -30,7 +30,7 @@ public final class RealEstateTile extends Tile {
      * @see #INITIAL_PURCHASE_COST
      * @see #HOUSE_UPGRADE_COST
      */
-    public static final int LANDING_FEE_NO_HOUSE = 500;
+    private static final int LANDING_FEE_NO_HOUSE = 500;
 
     /**
      * The fee another player has to pay when landing on a {@link RealEstateTile} owned by someone else with a house.
@@ -40,7 +40,7 @@ public final class RealEstateTile extends Tile {
      * @see #HOUSE_UPGRADE_COST
      * @see #LANDING_FEE_NO_HOUSE
      */
-    public static final int LANDING_FEE_WITH_HOUSE = 2000;
+    private static final int LANDING_FEE_WITH_HOUSE = 2000;
 
     /**
      * The owner of the tile.
